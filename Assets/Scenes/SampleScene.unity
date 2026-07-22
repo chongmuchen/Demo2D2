@@ -4337,7 +4337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhysicsCheck
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   manual: 0
   checkRaduis: 0.2
   bottomOffset: {x: -1, y: 0}
@@ -4369,7 +4369,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!212 &1263351388
 SpriteRenderer:

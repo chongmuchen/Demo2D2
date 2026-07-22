@@ -53,16 +53,11 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isDead || wait)
-        {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-        }
-        else if (!isHurt)
+        currentState.PhysicsUpdate();
+        if (!isDead || !isHurt ||!wait)
         {
             Move();
         }
-
-        currentState.PhysicsUpdate();
     }
 
     public void Move()
