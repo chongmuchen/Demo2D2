@@ -4193,12 +4193,12 @@ GameObject:
   - component: {fileID: 1263351388}
   - component: {fileID: 1263351387}
   - component: {fileID: 1263351386}
+  - component: {fileID: 1263351391}
+  - component: {fileID: 1263351390}
   - component: {fileID: 1263351385}
   - component: {fileID: 1263351384}
   - component: {fileID: 1263351383}
   - component: {fileID: 1263351382}
-  - component: {fileID: 1263351391}
-  - component: {fileID: 1263351390}
   m_Layer: 0
   m_Name: Snail
   m_TagString: Untagged

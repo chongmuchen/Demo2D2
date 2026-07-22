@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     protected BaseState patrolState;
     protected BaseState currentState;
     protected BaseState chaseState;
+    protected BaseState skillState;
 
     public Transform attacker;
 
@@ -66,7 +67,8 @@ public class Enemy : MonoBehaviour
 
     public void Move()
     {
-        rb.linearVelocity = new Vector2(faceDir.x * currentSpeed, rb.linearVelocity.y);
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("PreMove"))
+            rb.linearVelocity = new Vector2(faceDir.x * currentSpeed, rb.linearVelocity.y);
     }
 
     public void TimeCounter()
@@ -150,6 +152,7 @@ public class Enemy : MonoBehaviour
         {
             NPCState.Patrol => patrolState,
             NPCState.Chase => chaseState,
+            NPCState.Skill => skillState,
             _ => null
         };
         if (newState != null)
