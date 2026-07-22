@@ -63,7 +63,10 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            if (!isHurt)
+            {
+                rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            }
         }
     }
 
