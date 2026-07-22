@@ -14,10 +14,7 @@ public class BoarPatrolState : BaseState
             _currentEnemy.SwitchState(NPCState.Chase);
         }
 
-        bool touchFrontWall = _currentEnemy.faceDir.x < 0
-            ? _currentEnemy.physics.touchLeftWall
-            : _currentEnemy.physics.touchRightWall;
-        if (!_currentEnemy.physics.isGround || touchFrontWall)
+        if (!_currentEnemy.physics.isGround || _currentEnemy.physics.touchFrontWall)
         {
             _currentEnemy.wait = true;
             _currentEnemy.anim.SetBool("walk", false);

@@ -9,20 +9,17 @@ public class PhysicsCheck : MonoBehaviour
     public float checkRaduis;
 
     public Vector2 bottomOffset;
-    public Vector2 leftOffset;
-    public Vector2 rightOffset;
+    public Vector2 frontOffset;
 
     [Header("状态")] public bool isGround;
-    public bool touchLeftWall;
-    public bool touchRightWall;
+    public bool touchFrontWall;
 
     private void Awake()
     {
         _collider = GetComponent<CapsuleCollider2D>();
         if (!manual)
         {
-            rightOffset = new Vector2((_collider.bounds.size.x + _collider.offset.x) / 2, _collider.bounds.size.y / 2);
-            leftOffset = new Vector2(-rightOffset.x, rightOffset.y);
+            frontOffset = new Vector2(-(_collider.bounds.size.x + _collider.offset.x) / 2, _collider.bounds.size.y / 2);
         }
     }
 
@@ -35,15 +32,13 @@ public class PhysicsCheck : MonoBehaviour
     void Check()
     {
         isGround = Physics2D.OverlapCircle(GetPositionByOffset(bottomOffset), checkRaduis, groundLayer);
-        touchLeftWall = Physics2D.OverlapCircle(GetPositionByOffset(leftOffset), checkRaduis, groundLayer);
-        touchRightWall = Physics2D.OverlapCircle(GetPositionByOffset(rightOffset), checkRaduis, groundLayer);
+        touchFrontWall = Physics2D.OverlapCircle(GetPositionByOffset(frontOffset), checkRaduis, groundLayer);
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(GetPositionByOffset(bottomOffset), checkRaduis);
-        Gizmos.DrawWireSphere(GetPositionByOffset(leftOffset), checkRaduis);
-        Gizmos.DrawWireSphere(GetPositionByOffset(rightOffset), checkRaduis);
+        Gizmos.DrawWireSphere(GetPositionByOffset(frontOffset), checkRaduis);
     }
 
     private Vector2 GetPositionByOffset(Vector2 offset)
@@ -53,6 +48,7 @@ public class PhysicsCheck : MonoBehaviour
         {
             dirX = -1;
         }
+
         return (Vector2)transform.position + new Vector2(offset.x * dirX, offset.y);
     }
 }

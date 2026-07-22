@@ -12,10 +12,7 @@ public class BoarChaseSate : BaseState
 
     public override void LogicUpdate()
     {
-        bool touchFrontWall = _currentEnemy.faceDir.x < 0
-            ? _currentEnemy.physics.touchLeftWall
-            : _currentEnemy.physics.touchRightWall;
-        if (!_currentEnemy.physics.isGround || touchFrontWall)
+        if (!_currentEnemy.physics.isGround || _currentEnemy.physics.touchFrontWall)
         {
             _currentEnemy.transform.localScale = new Vector3(_currentEnemy.faceDir.x, 1, 1);
         }

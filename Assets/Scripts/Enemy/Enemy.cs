@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
 
     [Header("检测")] public Vector2 centerOffset;
     public Vector2 checkSize;
-    public Vector2 checkDistance;
+    public float checkDistance;
     public LayerMask attackLayer;
 
     protected virtual void Awake()
@@ -120,7 +120,9 @@ public class Enemy : MonoBehaviour
 
     public bool FoundPlayer()
     {
-        return Physics2D.BoxCast(transform.position + (Vector3)centerOffset, checkSize, 0, checkDistance, attackLayer);
+        Vector2 direction = transform.localScale.x < 0 ? Vector2.right : Vector2.left;
+        Vector2 origin = (Vector2)transform.position + centerOffset;
+        return Physics2D.BoxCast(origin, checkSize, 0f, direction, checkDistance, attackLayer);
     }
 
     private void OnEnable()
@@ -152,6 +154,10 @@ public class Enemy : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position + (Vector3)centerOffset, 0.2f);
-    } 
+        Vector2 direction = transform.localScale.x < 0 ? Vector2.right : Vector2.left;
+        Vector2 origin = (Vector2)transform.position + centerOffset;
+        Vector2 center = origin + direction * (checkDistance * 0.5f);
+        Vector2 size = new Vector2(checkSize.x + checkDistance, checkSize.y);
+        Gizmos.DrawWireCube(center, size);
+    }
 }
