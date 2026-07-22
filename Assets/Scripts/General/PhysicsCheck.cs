@@ -31,17 +31,17 @@ public class PhysicsCheck : MonoBehaviour
 
     void Check()
     {
-        isGround = Physics2D.OverlapCircle(GetPositionByOffset(bottomOffset), checkRaduis, groundLayer);
-        touchFrontWall = Physics2D.OverlapCircle(GetPositionByOffset(frontOffset), checkRaduis, groundLayer);
+        isGround = Physics2D.OverlapCircle(GetPosByOffset(bottomOffset), checkRaduis, groundLayer);
+        touchFrontWall = Physics2D.OverlapCircle(GetPosByOffset(frontOffset), checkRaduis, groundLayer);
     }
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(GetPositionByOffset(bottomOffset), checkRaduis);
-        Gizmos.DrawWireSphere(GetPositionByOffset(frontOffset), checkRaduis);
+        Gizmos.DrawWireSphere(GetPosByOffset(bottomOffset), checkRaduis);
+        Gizmos.DrawWireSphere(GetPosByOffset(frontOffset), checkRaduis);
     }
 
-    private Vector2 GetPositionByOffset(Vector2 offset)
+    public Vector2 GetPosByOffset(Vector2 offset)
     {
         var dirX = 1;
         if (transform.localScale.x < 0)

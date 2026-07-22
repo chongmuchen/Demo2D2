@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour
         currentState.PhysicsUpdate();
     }
 
-    public virtual void Move()
+    public void Move()
     {
         rb.linearVelocity = new Vector2(faceDir.x * currentSpeed, rb.linearVelocity.y);
     }
@@ -120,9 +120,8 @@ public class Enemy : MonoBehaviour
 
     public bool FoundPlayer()
     {
-        Vector2 direction = transform.localScale.x < 0 ? Vector2.right : Vector2.left;
-        Vector2 origin = (Vector2)transform.position + centerOffset;
-        return Physics2D.BoxCast(origin, checkSize, 0f, direction, checkDistance, attackLayer);
+        return Physics2D.BoxCast(physics.GetPosByOffset(centerOffset), checkSize, 0f, faceDir, checkDistance,
+            attackLayer);
     }
 
     private void OnEnable()
@@ -154,9 +153,7 @@ public class Enemy : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Vector2 direction = transform.localScale.x < 0 ? Vector2.right : Vector2.left;
-        Vector2 origin = (Vector2)transform.position + centerOffset;
-        Vector2 center = origin + direction * (checkDistance * 0.5f);
+        Vector2 center = physics.GetPosByOffset(centerOffset) + (Vector2)faceDir * (checkDistance * 0.5f);
         Vector2 size = new Vector2(checkSize.x + checkDistance, checkSize.y);
         Gizmos.DrawWireCube(center, size);
     }

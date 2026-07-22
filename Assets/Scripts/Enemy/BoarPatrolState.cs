@@ -9,9 +9,11 @@ public class BoarPatrolState : BaseState
 
     public override void LogicUpdate()
     {
-        if (_currentEnemy.FoundPlayer())
+        var found = _currentEnemy.FoundPlayer();
+        if (found)
         {
-            _currentEnemy.SwitchState(NPCState.Chase);
+            // _currentEnemy.SwitchState(NPCState.Chase);
+            return;
         }
 
         if (!_currentEnemy.physics.isGround || _currentEnemy.physics.touchFrontWall)
