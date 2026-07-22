@@ -35,4 +35,8 @@ public class Bee : Enemy
         var targetY = Random.Range(-patrolRadius, patrolRadius);
         return spawnPoint + new Vector3(targetX, targetY, 0f);
     }
+
+    public override void Move()
+    {
+    }
 }

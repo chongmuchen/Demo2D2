@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class BeeChaseState : BaseState
 {
+    public bool isAttack;
     public Vector3 targetPos;
     public Vector3 moveDir;
     private Attack _attack;
+    [Header("状态")] public float attackTimeCounter;
 
     public override void OnEnter(Enemy enemy)
     {
@@ -13,6 +15,7 @@ public class BeeChaseState : BaseState
         _currentEnemy.currentSpeed = _currentEnemy.chaseSpeed;
         _attack = _currentEnemy.GetComponent<Attack>();
         _currentEnemy.lostTimeCounter = _currentEnemy.lostTime;
+        _currentEnemy.anim.SetBool("chase", true);
     }
 
     public override void LogicUpdate()
@@ -25,7 +28,21 @@ public class BeeChaseState : BaseState
         targetPos = _currentEnemy.attacker.position + new Vector3(0, 1.5f);
         if (Math.Abs(_currentEnemy.transform.position.x - _currentEnemy.attacker.position.x) < _attack.attackRange &&
             Math.Abs(_currentEnemy.transform.position.y - _currentEnemy.attacker.position.y) < _attack.attackRange)
+        {
+            isAttack = true;
             _currentEnemy.rb.linearVelocity = Vector3.zero;
+            attackTimeCounter -= Time.deltaTime;
+            if (attackTimeCounter < 0)
+            {
+                _currentEnemy.anim.SetTrigger("attack");
+                attackTimeCounter = _attack.attackRange;
+            }
+        }
+        else
+        {
+            isAttack = false;
+        }
+
         moveDir = (targetPos - _currentEnemy.transform.position).normalized;
         if (moveDir.x > 0)
         {
@@ -40,7 +57,7 @@ public class BeeChaseState : BaseState
 
     public override void PhysicsUpdate()
     {
-        if (!_currentEnemy.isHurt && !_currentEnemy.isDead)
+        if (!isAttack && !_currentEnemy.isHurt && !_currentEnemy.isDead)
         {
             _currentEnemy.rb.linearVelocity = moveDir * _currentEnemy.currentSpeed;
         }
@@ -48,6 +65,6 @@ public class BeeChaseState : BaseState
 
     public override void OnExit()
     {
-        _currentEnemy.anim.SetBool("run", false);
+        _currentEnemy.anim.SetBool("chase", false);
     }
 }

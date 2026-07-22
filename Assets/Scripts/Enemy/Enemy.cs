@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Move()
+    public virtual void Move()
     {
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("PreMove") &&
             !anim.GetCurrentAnimatorStateInfo(0).IsName("SnailRecover"))
