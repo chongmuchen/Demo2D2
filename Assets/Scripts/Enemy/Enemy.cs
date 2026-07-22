@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         physics = GetComponent<PhysicsCheck>();
+        faceDir = new Vector3(-transform.localScale.x, 0, 0);
         currentSpeed = normalSpeed;
         waitTimeCounter = waitTime;
     }
@@ -162,6 +163,10 @@ public class Enemy : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        if (faceDir.x == 0)
+        {
+            faceDir = new Vector3(-transform.localScale.x, 0, 0);
+        }
         Vector2 center = GetPosByOffset(centerOffset) + (Vector2)faceDir * (checkDistance * 0.5f);
         Vector2 size = new Vector2(checkSize.x + checkDistance, checkSize.y);
         Gizmos.DrawWireCube(center, size);

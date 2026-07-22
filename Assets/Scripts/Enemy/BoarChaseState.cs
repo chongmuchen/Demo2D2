@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BoarChaseSate : BaseState
+public class BoarChaseState : BaseState
 {
     public override void OnEnter(Enemy enemy)
     {
