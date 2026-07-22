@@ -4,17 +4,15 @@ using UnityEngine.Events;
 
 public class Character : MonoBehaviour
 {
-    [Header("基本属性")]
-    public float maxHealth;
+    [Header("基本属性")] public float maxHealth;
     public float currentHealth;
 
-    [Header("受伤无敌")]
-    public float invulnerableDuration;
+    [Header("受伤无敌")] public float invulnerableDuration;
     public float invulnerableCounter;
     public bool invulnerable;
     public UnityEvent<Transform> OnTakeDamage;
     public UnityEvent OnDie;
-    
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -29,7 +27,7 @@ public class Character : MonoBehaviour
 
         if (currentHealth > attack.damage)
         {
-            currentHealth -= attack.damage; 
+            currentHealth -= attack.damage;
             TriggerInvulnerable();
             OnTakeDamage?.Invoke(attack.transform);
         }

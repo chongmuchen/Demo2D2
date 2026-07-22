@@ -67,7 +67,8 @@ public class Enemy : MonoBehaviour
 
     public void Move()
     {
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("PreMove"))
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("PreMove") &&
+            !anim.GetCurrentAnimatorStateInfo(0).IsName("SnailRecover"))
             rb.linearVelocity = new Vector2(faceDir.x * currentSpeed, rb.linearVelocity.y);
     }
 
