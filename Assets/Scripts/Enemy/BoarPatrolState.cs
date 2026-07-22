@@ -1,15 +1,31 @@
 using UnityEngine;
 
-public class BoarPatrolState: BaseState
+public class BoarPatrolState : BaseState
 {
-    public override void OnEnter()
+    public override void OnEnter(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        _currentEnemy = enemy;
     }
 
     public override void LogicUpdate()
     {
-        throw new System.NotImplementedException();
+        if (_currentEnemy.FoundPlayer())
+        {
+            _currentEnemy.SwitchState(NPCState.Chase);
+        }
+
+        bool touchFrontWall = _currentEnemy.faceDir.x < 0
+            ? _currentEnemy.physics.touchLeftWall
+            : _currentEnemy.physics.touchRightWall;
+        if (!_currentEnemy.physics.isGround || touchFrontWall)
+        {
+            _currentEnemy.wait = true;
+            _currentEnemy.anim.SetBool("walk", false);
+        }
+        else
+        {
+            _currentEnemy.anim.SetBool("walk", true);
+        }
     }
 
     public override void PhysicsUpdate()
@@ -19,6 +35,6 @@ public class BoarPatrolState: BaseState
 
     public override void OnExit()
     {
-        throw new System.NotImplementedException();
+        _currentEnemy.anim.SetBool("walk", false);
     }
 }

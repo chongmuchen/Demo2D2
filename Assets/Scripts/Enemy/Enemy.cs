@@ -1,11 +1,12 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
     protected Rigidbody2D rb;
-    protected Animator anim;
-    protected PhysicsCheck physics;
+    [HideInInspector] public Animator anim;
+    [HideInInspector] public PhysicsCheck physics;
     protected BaseState patrolState;
     protected BaseState currentState;
     protected BaseState chaseState;
@@ -25,7 +26,12 @@ public class Enemy : MonoBehaviour
     [Header("状态")] public bool isHurt;
     public bool isDead;
 
-    private void Awake()
+    [Header("检测")] public Vector2 centerOffset;
+    public Vector2 checkSize;
+    public Vector2 checkDistance;
+    public LayerMask attackLayer;
+
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -37,23 +43,22 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         faceDir = new Vector3(-transform.localScale.x, 0, 0);
-        bool touchFrontWall = faceDir.x < 0 ? physics.touchLeftWall : physics.touchRightWall;
-        if (touchFrontWall)
-        {
-            // transform.localScale = new Vector3(faceDir.x, transform.localScale.y, transform.localScale.z);
-            wait = true;
-            anim.SetBool("walk", false);
-        }
-
+        currentState.LogicUpdate();
         TimeCounter();
     }
 
     private void FixedUpdate()
     {
-        if (!isHurt && !isDead)
+        if (!isHurt && !isDead && !wait)
         {
             Move();
         }
+        else
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        }
+
+        currentState.PhysicsUpdate();
     }
 
     public virtual void Move()
@@ -113,9 +118,40 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public bool FoundPlayer()
+    {
+        return Physics2D.BoxCast(transform.position + (Vector3)centerOffset, checkSize, 0, checkDistance, attackLayer);
+    }
+
     private void OnEnable()
     {
         currentState = patrolState;
-        currentState.OnEnter();
+        currentState.OnEnter(this);
     }
+
+    private void OnDisable()
+    {
+        currentState.OnExit();
+    }
+
+    public void SwitchState(NPCState state)
+    {
+        var newState = state switch
+        {
+            NPCState.Patrol => patrolState,
+            NPCState.Chase => chaseState,
+            _ => null
+        };
+        if (newState != null)
+        {
+            currentState.OnExit();
+            currentState = newState;
+            currentState.OnEnter(this);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position + (Vector3)centerOffset, 0.2f);
+    } 
 }
