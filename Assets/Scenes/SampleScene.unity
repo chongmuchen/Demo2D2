@@ -3932,6 +3932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7eb42212edc44c0b8bd053d6fd6b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boar
+  rb: {fileID: 0}
   anim: {fileID: 0}
   physics: {fileID: 0}
   attacker: {fileID: 0}
@@ -3953,6 +3954,7 @@ MonoBehaviour:
   attackLayer:
     serializedVersion: 2
     m_Bits: 128
+  spawnPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &1078638324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4280,6 +4282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35b8ba5cdc244dd5b9d23abae236ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Snail
+  rb: {fileID: 0}
   anim: {fileID: 0}
   physics: {fileID: 0}
   attacker: {fileID: 0}
@@ -4301,6 +4304,7 @@ MonoBehaviour:
   attackLayer:
     serializedVersion: 2
     m_Bits: 128
+  spawnPoint: {x: 0, y: 0, z: 0}
 --- !u!95 &1263351385
 Animator:
   serializedVersion: 7
@@ -4543,6 +4547,8 @@ GameObject:
   - component: {fileID: 1381410565}
   - component: {fileID: 1381410564}
   - component: {fileID: 1381410563}
+  - component: {fileID: 1381410568}
+  - component: {fileID: 1381410569}
   m_Layer: 8
   m_Name: Bee
   m_TagString: Untagged
@@ -4636,6 +4642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166008d86de564add999cf57517c8a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bee
+  rb: {fileID: 0}
   anim: {fileID: 0}
   physics: {fileID: 0}
   attacker: {fileID: 0}
@@ -4657,6 +4664,8 @@ MonoBehaviour:
   attackLayer:
     serializedVersion: 2
     m_Bits: 0
+  spawnPoint: {x: 0, y: 0, z: 0}
+  patrolRadius: 5
 --- !u!114 &1381410564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4752,7 +4761,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -4762,8 +4771,70 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &1381410568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381410560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 726960246c284456ab6c0486bd79e6a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Attack
+  damage: 5
+  attackRange: 1.2
+  attackRate: 1
+--- !u!114 &1381410569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381410560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df25ddfbc4404dc38dc5dd58e5569e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  maxHealth: 50
+  currentHealth: 0
+  invulnerableDuration: 0.2
+  invulnerableCounter: 0
+  invulnerable: 0
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1381410563}
+        m_TargetAssemblyTypeName: Bee, Assembly-CSharp
+        m_MethodName: OnTakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDie:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1381410563}
+        m_TargetAssemblyTypeName: Bee, Assembly-CSharp
+        m_MethodName: OnDie
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1423870932
 GameObject:
   m_ObjectHideFlags: 0

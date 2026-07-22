@@ -5,7 +5,7 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody2D), typeof(PhysicsCheck), typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
-    protected Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public Animator anim;
     [HideInInspector] public PhysicsCheck physics;
     protected BaseState patrolState;
@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
     public Vector2 checkSize;
     public float checkDistance;
     public LayerMask attackLayer;
+    public Vector3 spawnPoint;
 
     protected virtual void Awake()
     {
@@ -43,6 +44,7 @@ public class Enemy : MonoBehaviour
         faceDir = new Vector3(-transform.localScale.x, 0, 0);
         currentSpeed = normalSpeed;
         waitTimeCounter = waitTime;
+        spawnPoint = transform.position;
     }
 
     private void Update()
@@ -130,10 +132,9 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public bool FoundPlayer()
+    public virtual bool FoundPlayer()
     {
-        return Physics2D.BoxCast(physics.GetPosByOffset(centerOffset), checkSize, 0f, faceDir, checkDistance,
-            attackLayer);
+        return Physics2D.BoxCast(GetPosByOffset(centerOffset), checkSize, 0f, faceDir, checkDistance, attackLayer);
     }
 
     private void OnEnable()
@@ -164,12 +165,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         if (faceDir.x == 0)
         {
             faceDir = new Vector3(-transform.localScale.x, 0, 0);
         }
+
         Vector2 center = GetPosByOffset(centerOffset) + (Vector2)faceDir * (checkDistance * 0.5f);
         Vector2 size = new Vector2(checkSize.x + checkDistance, checkSize.y);
         Gizmos.DrawWireCube(center, size);
@@ -184,5 +186,10 @@ public class Enemy : MonoBehaviour
         }
 
         return (Vector2)transform.position + new Vector2(offset.x * dirX, offset.y);
+    }
+
+    public virtual Vector3 GetNewPoint()
+    {
+        return transform.position;
     }
 }
