@@ -30,7 +30,11 @@ public class BeeChaseState : BaseState
             Math.Abs(_currentEnemy.transform.position.y - _currentEnemy.attacker.position.y) < _attack.attackRange)
         {
             isAttack = true;
-            _currentEnemy.rb.linearVelocity = Vector3.zero;
+            if (!_currentEnemy.isDead)
+            {
+                _currentEnemy.rb.linearVelocity = Vector3.zero;
+            }
+
             attackTimeCounter -= Time.deltaTime;
             if (attackTimeCounter < 0)
             {
