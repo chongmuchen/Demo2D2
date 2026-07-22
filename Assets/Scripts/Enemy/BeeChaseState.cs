@@ -25,12 +25,12 @@ public class BeeChaseState : BaseState
             _currentEnemy.SwitchState(NPCState.Patrol);
         }
 
-        targetPos = _currentEnemy.attacker.position + new Vector3(0, 1.5f);
-        if (Math.Abs(_currentEnemy.transform.position.x - _currentEnemy.attacker.position.x) < _attack.attackRange &&
-            Math.Abs(_currentEnemy.transform.position.y - _currentEnemy.attacker.position.y) < _attack.attackRange)
+        targetPos = _currentEnemy.attacker.position + new Vector3(0, 0.8f);
+        if (Math.Abs(_currentEnemy.transform.position.x - targetPos.x) < _attack.attackRange &&
+            Math.Abs(_currentEnemy.transform.position.y - targetPos.y) < _attack.attackRange)
         {
             isAttack = true;
-            if (!_currentEnemy.isDead)
+            if (!_currentEnemy.isHurt)
             {
                 _currentEnemy.rb.linearVelocity = Vector3.zero;
             }
@@ -39,7 +39,7 @@ public class BeeChaseState : BaseState
             if (attackTimeCounter < 0)
             {
                 _currentEnemy.anim.SetTrigger("attack");
-                attackTimeCounter = _attack.attackRange;
+                attackTimeCounter = _attack.attackRate;
             }
         }
         else
