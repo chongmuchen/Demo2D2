@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(PhysicsCheck), typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
     protected Rigidbody2D rb;
@@ -22,6 +23,8 @@ public class Enemy : MonoBehaviour
     [Header("计时器")] public float waitTime;
     public float waitTimeCounter;
     public bool wait;
+    public float lostTime;
+    public float lostTimeCounter;
 
     [Header("状态")] public bool isHurt;
     public bool isDead;
@@ -49,13 +52,13 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isHurt && !isDead && !wait)
-        {
-            Move();
-        }
-        else
+        if (isDead || wait)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        }
+        else if (!isHurt)
+        {
+            Move();
         }
 
         currentState.PhysicsUpdate();
@@ -78,6 +81,11 @@ public class Enemy : MonoBehaviour
                 transform.localScale = new Vector3(faceDir.x, transform.localScale.y, transform.localScale.z);
             }
         }
+
+        if (!FoundPlayer())
+        {
+            lostTimeCounter -= Time.deltaTime;
+        }
     }
 
     public void OnTakeDamage(Transform attackerTrans)
@@ -95,6 +103,7 @@ public class Enemy : MonoBehaviour
 
         isHurt = true;
         anim.SetTrigger("hurt");
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         Vector2 dir = new Vector2(transform.position.x - attacker.position.x, 0).normalized;
         StartCoroutine(OnHurt(dir));
     }
@@ -153,8 +162,19 @@ public class Enemy : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Vector2 center = physics.GetPosByOffset(centerOffset) + (Vector2)faceDir * (checkDistance * 0.5f);
+        Vector2 center = GetPosByOffset(centerOffset) + (Vector2)faceDir * (checkDistance * 0.5f);
         Vector2 size = new Vector2(checkSize.x + checkDistance, checkSize.y);
         Gizmos.DrawWireCube(center, size);
+    }
+
+    public Vector2 GetPosByOffset(Vector2 offset)
+    {
+        var dirX = 1;
+        if (transform.localScale.x < 0)
+        {
+            dirX = -1;
+        }
+
+        return (Vector2)transform.position + new Vector2(offset.x * dirX, offset.y);
     }
 }

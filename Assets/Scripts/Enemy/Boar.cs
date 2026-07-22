@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Boar : Enemy
 {
-    protected virtual void Awake()
+    protected override void Awake()
     {
         base.Awake();
         patrolState = new BoarPatrolState();

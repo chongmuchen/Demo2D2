@@ -5,6 +5,7 @@ public class BoarPatrolState : BaseState
     public override void OnEnter(Enemy enemy)
     {
         _currentEnemy = enemy;
+        _currentEnemy.currentSpeed = _currentEnemy.normalSpeed;
     }
 
     public override void LogicUpdate()
@@ -12,7 +13,7 @@ public class BoarPatrolState : BaseState
         var found = _currentEnemy.FoundPlayer();
         if (found)
         {
-            // _currentEnemy.SwitchState(NPCState.Chase);
+            _currentEnemy.SwitchState(NPCState.Chase);
             return;
         }
 
