@@ -34,15 +34,25 @@ public class PhysicsCheck : MonoBehaviour
 
     void Check()
     {
-        isGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, checkRaduis, groundLayer);
-        touchLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, checkRaduis, groundLayer);
-        touchRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, checkRaduis, groundLayer);
+        isGround = Physics2D.OverlapCircle(GetPositionByOffset(bottomOffset), checkRaduis, groundLayer);
+        touchLeftWall = Physics2D.OverlapCircle(GetPositionByOffset(leftOffset), checkRaduis, groundLayer);
+        touchRightWall = Physics2D.OverlapCircle(GetPositionByOffset(rightOffset), checkRaduis, groundLayer);
     }
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere((Vector2)transform.position + bottomOffset, checkRaduis);
-        Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, checkRaduis);
-        Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, checkRaduis);
+        Gizmos.DrawWireSphere(GetPositionByOffset(bottomOffset), checkRaduis);
+        Gizmos.DrawWireSphere(GetPositionByOffset(leftOffset), checkRaduis);
+        Gizmos.DrawWireSphere(GetPositionByOffset(rightOffset), checkRaduis);
+    }
+
+    private Vector2 GetPositionByOffset(Vector2 offset)
+    {
+        var dirX = 1;
+        if (transform.localScale.x < 0)
+        {
+            dirX = -1;
+        }
+        return (Vector2)transform.position + new Vector2(offset.x * dirX, offset.y);
     }
 }
