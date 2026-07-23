@@ -19,6 +19,7 @@ public sealed class PixelTextureImporter : AssetPostprocessor
 
         var importer = (TextureImporter)assetImporter;
         importer.spritePixelsPerUnit = 16;
+        importer.filterMode = FilterMode.Point;
         importer.wrapMode = TextureWrapMode.Clamp;
         importer.textureCompression = TextureImporterCompression.Uncompressed;
     }
