@@ -5,6 +5,7 @@ public class PhysicsCheck : MonoBehaviour
 {
     private CapsuleCollider2D _collider;
     private PlayerController _playerController;
+    private Rigidbody2D _rb;
     public LayerMask groundLayer;
     [Header("参数检测")] public bool manual;
     public bool isPlayer;
@@ -22,6 +23,7 @@ public class PhysicsCheck : MonoBehaviour
     private void Awake()
     {
         _collider = GetComponent<CapsuleCollider2D>();
+        _rb = GetComponent<Rigidbody2D>();
         if (!manual)
         {
             frontOffset = new Vector2(-(_collider.bounds.size.x + _collider.offset.x) / 2, _collider.bounds.size.y / 2);
@@ -49,7 +51,7 @@ public class PhysicsCheck : MonoBehaviour
         {
             var forward = (_playerController.inputDirection.x > 0 && transform.localScale.x > 0) ||
                           (_playerController.inputDirection.x < 0 && transform.localScale.x < 0);
-            onWall = (touchFrontWall || touchBackWall) && !isGround && forward;
+            onWall = (touchFrontWall || touchBackWall) && _rb.linearVelocity.y < 0 && forward;
         }
     }
 

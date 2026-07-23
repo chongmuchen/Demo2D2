@@ -4280,12 +4280,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   manual: 1
+  isPlayer: 0
   checkRaduis: 0.1
   bottomOffset: {x: -1.3, y: 0}
   frontOffset: {x: -1.3, y: 0.7}
+  backOffset: {x: 0, y: 0}
   isGround: 1
   onWall: 0
   touchFrontWall: 0
+  touchBackWall: 0
 --- !u!1 &1144195476
 GameObject:
   m_ObjectHideFlags: 0
@@ -4768,12 +4771,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   manual: 0
+  isPlayer: 0
   checkRaduis: 0.2
   bottomOffset: {x: -1, y: 0}
   frontOffset: {x: -1, y: 1}
+  backOffset: {x: 0, y: 0}
   isGround: 0
   onWall: 0
   touchFrontWall: 0
+  touchBackWall: 0
 --- !u!50 &1263351387
 Rigidbody2D:
   serializedVersion: 5
@@ -5109,12 +5115,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   manual: 0
+  isPlayer: 0
   checkRaduis: 0.1
   bottomOffset: {x: 0, y: 0}
   frontOffset: {x: 0, y: 0}
+  backOffset: {x: 0, y: 0}
   isGround: 0
   onWall: 0
   touchFrontWall: 0
+  touchBackWall: 0
 --- !u!95 &1381410565
 Animator:
   serializedVersion: 7
@@ -6566,12 +6575,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 5
   jumpForce: 16.5
+  wallJumpForce: 10
   inputDirection: {x: 0, y: 0}
   isCrouch: 0
   isDead: 0
   isHurt: 0
   hurtForce: 8
   isAttack: 0
+  wallJumping: 0
   normalMaterial: {fileID: 6200000, guid: 6edf97660f0504f9ebe39505e2f043da, type: 2}
   wallMaterial: {fileID: 6200000, guid: e25b7f1259a8c4702aa20410f5a15c54, type: 2}
 --- !u!114 &1979100889
@@ -6590,12 +6601,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   manual: 1
+  isPlayer: 1
   checkRaduis: 0.1
   bottomOffset: {x: 0, y: 0}
-  frontOffset: {x: 0.5, y: 0}
+  frontOffset: {x: 0.7, y: 1}
+  backOffset: {x: -0.7, y: 1}
   isGround: 0
   onWall: 0
   touchFrontWall: 0
+  touchBackWall: 0
 --- !u!95 &1979100890
 Animator:
   serializedVersion: 7
