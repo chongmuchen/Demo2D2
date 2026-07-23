@@ -39,7 +39,6 @@ public class PlayerStatBar : MonoBehaviour
 
     public void OnPowerChange(Character character)
     {
-        Debug.Log("OnPowerChange");
         isRecovering = true;
         currentCharacter = character;
     }
