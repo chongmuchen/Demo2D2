@@ -6,16 +6,19 @@ public class Character : MonoBehaviour
 {
     [Header("基本属性")] public float maxHealth;
     public float currentHealth;
-
+    
     [Header("受伤无敌")] public float invulnerableDuration;
     public float invulnerableCounter;
     public bool invulnerable;
+    [Header("事件")]
     public UnityEvent<Transform> OnTakeDamage;
     public UnityEvent OnDie;
+    public UnityEvent<Character> OnHealthChange;
 
     private void Start()
     {
         currentHealth = maxHealth;
+        OnHealthChange?.Invoke(this);
     }
 
     public void TakeDamage(Attack attack)
@@ -36,6 +39,7 @@ public class Character : MonoBehaviour
             currentHealth = 0;
             OnDie?.Invoke();
         }
+        OnHealthChange?.Invoke(this);
     }
 
     private void TriggerInvulnerable()
