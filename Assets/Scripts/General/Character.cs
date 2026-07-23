@@ -62,7 +62,7 @@ public class Character : MonoBehaviour
                 invulnerable = false;
             }
         }
-        
+
         currentPower += powerRecoverSpeed * Time.deltaTime;
         if (currentPower >= maxPower)
         {
@@ -77,6 +77,17 @@ public class Character : MonoBehaviour
         {
             currentPower = 0;
         }
+
         OnHealthChange?.Invoke(this);
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            currentHealth = 0;
+            OnDie?.Invoke();
+            OnHealthChange?.Invoke(this);
+        }
     }
 }
