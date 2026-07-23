@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 inputDirection;
     public float slideDistance;
     public float slideSpeed;
+    public float slidePowerCost;
 
     [Header("状态")] public bool isCrouch;
     public bool isDead;
@@ -118,6 +119,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump(InputAction.CallbackContext ctx)
     {
+        isSlide = false;
         if (physisCheck.isGround)
         {
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
@@ -141,11 +143,13 @@ public class PlayerController : MonoBehaviour
 
     private void Slide(InputAction.CallbackContext obj)
     {
-        if (!isSlide)
+        if (!isSlide && physisCheck.isGround)
         {
             isSlide = true;
             var targetPos = new Vector2(transform.position.x + transform.localScale.x * slideDistance,
                 transform.position.y);
+            gameObject.layer = LayerMask.NameToLayer("Enemy");
+            GetComponent<Character>().OnSlide(slidePowerCost);
             StartCoroutine(TriggerSlice(targetPos));
         }
     }
@@ -162,15 +166,15 @@ public class PlayerController : MonoBehaviour
 
             if (physisCheck.touchFrontWall)
             {
-                isSlide = false;
                 break;
             }
 
             var nextPos = new Vector2(transform.position.x + transform.localScale.x * slideSpeed,
                 transform.position.y);
             rb.MovePosition(nextPos);
-        } while (Math.Abs(transform.position.x - target.x) > 0.1);
+        } while (Math.Abs(transform.position.x - target.x) > 0.1 && isSlide);
 
+        gameObject.layer = LayerMask.NameToLayer("Player");
         isSlide = false;
     }
 

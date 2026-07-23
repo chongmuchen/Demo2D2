@@ -4156,6 +4156,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   maxHealth: 100
   currentHealth: 0
+  maxPower: 0
+  currentPower: 0
+  powerRecoverSpeed: 0
   invulnerableDuration: 1
   invulnerableCounter: 0
   invulnerable: 0
@@ -4662,6 +4665,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   maxHealth: 100
   currentHealth: 0
+  maxPower: 0
+  currentPower: 0
+  powerRecoverSpeed: 0
   invulnerableDuration: 2
   invulnerableCounter: 0
   invulnerable: 0
@@ -5239,6 +5245,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   maxHealth: 50
   currentHealth: 0
+  maxPower: 0
+  currentPower: 0
+  powerRecoverSpeed: 0
   invulnerableDuration: 0.2
   invulnerableCounter: 0
   invulnerable: 0
@@ -5583,6 +5592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e332b7c87b726419688ffd3473122529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatBar
+  currentCharacter: {fileID: 0}
   healthImage: {fileID: 1854507053}
   healthDeleteImage: {fileID: 1908090955}
   powerImage: {fileID: 1070899412}
@@ -6579,6 +6589,7 @@ MonoBehaviour:
   inputDirection: {x: 0, y: 0}
   slideDistance: 4.5
   slideSpeed: 0.2
+  slidePowerCost: 5
   isCrouch: 0
   isDead: 0
   isHurt: 0
@@ -6691,6 +6702,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   maxHealth: 100
   currentHealth: 0
+  maxPower: 100
+  currentPower: 0
+  powerRecoverSpeed: 0.2
   invulnerableDuration: 2
   invulnerableCounter: 0
   invulnerable: 0
