@@ -20,7 +20,7 @@ public class Character : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-        currentHealth = maxPower;
+        currentPower = maxPower;
         OnHealthChange?.Invoke(this);
     }
 
@@ -62,9 +62,9 @@ public class Character : MonoBehaviour
                 invulnerable = false;
             }
         }
-
+        
         currentPower += powerRecoverSpeed * Time.deltaTime;
-        if (currentPower <= maxPower)
+        if (currentPower >= maxPower)
         {
             currentPower = maxPower;
         }
@@ -73,6 +73,10 @@ public class Character : MonoBehaviour
     public void OnSlide(float cost)
     {
         currentPower -= cost;
+        if (currentPower < 0)
+        {
+            currentPower = 0;
+        }
         OnHealthChange?.Invoke(this);
     }
 }

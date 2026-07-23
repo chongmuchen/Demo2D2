@@ -6704,7 +6704,7 @@ MonoBehaviour:
   currentHealth: 0
   maxPower: 100
   currentPower: 0
-  powerRecoverSpeed: 0.2
+  powerRecoverSpeed: 1
   invulnerableDuration: 2
   invulnerableCounter: 0
   invulnerable: 0

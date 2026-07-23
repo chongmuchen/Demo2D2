@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private PhysicsCheck physisCheck;
     private CapsuleCollider2D _collider;
     private PlayerAnimation _playerAnimation;
+    private Character _character;
 
     private Vector2 originalOffset;
     private Vector2 originalSize;
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
         physisCheck = GetComponent<PhysicsCheck>();
         _collider = GetComponent<CapsuleCollider2D>();
         _playerAnimation = GetComponent<PlayerAnimation>();
+        _character = GetComponent<Character>();
 
         originalOffset = _collider.offset;
         originalSize = _collider.size;
@@ -143,13 +145,13 @@ public class PlayerController : MonoBehaviour
 
     private void Slide(InputAction.CallbackContext obj)
     {
-        if (!isSlide && physisCheck.isGround)
+        if (!isSlide && physisCheck.isGround && _character.currentPower >= slidePowerCost)
         {
             isSlide = true;
             var targetPos = new Vector2(transform.position.x + transform.localScale.x * slideDistance,
                 transform.position.y);
             gameObject.layer = LayerMask.NameToLayer("Enemy");
-            GetComponent<Character>().OnSlide(slidePowerCost);
+            _character.OnSlide(slidePowerCost);
             StartCoroutine(TriggerSlice(targetPos));
         }
     }

@@ -23,7 +23,7 @@ public class PlayerStatBar : MonoBehaviour
 
         if (isRecovering)
         {
-            var percentage = currentCharacter.currentHealth / currentCharacter.maxHealth;
+            var percentage = currentCharacter.currentPower / currentCharacter.maxPower;
             powerImage.fillAmount = percentage;
             if (percentage >= 1)
             {
@@ -39,7 +39,8 @@ public class PlayerStatBar : MonoBehaviour
 
     public void OnPowerChange(Character character)
     {
-        isRecovering = this;
+        Debug.Log("OnPowerChange");
+        isRecovering = true;
         currentCharacter = character;
     }
 }
