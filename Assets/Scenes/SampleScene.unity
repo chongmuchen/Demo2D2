@@ -3957,7 +3957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1078638315
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6577,11 +6577,14 @@ MonoBehaviour:
   jumpForce: 16.5
   wallJumpForce: 10
   inputDirection: {x: 0, y: 0}
+  slideDistance: 4.5
+  slideSpeed: 0.2
   isCrouch: 0
   isDead: 0
   isHurt: 0
   hurtForce: 8
   isAttack: 0
+  isSlide: 0
   wallJumping: 0
   normalMaterial: {fileID: 6200000, guid: 6edf97660f0504f9ebe39505e2f043da, type: 2}
   wallMaterial: {fileID: 6200000, guid: e25b7f1259a8c4702aa20410f5a15c54, type: 2}

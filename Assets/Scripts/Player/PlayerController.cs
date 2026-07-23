@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,12 +20,15 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     public float wallJumpForce;
     public Vector2 inputDirection;
+    public float slideDistance;
+    public float slideSpeed;
 
     [Header("状态")] public bool isCrouch;
     public bool isDead;
     public bool isHurt;
     public float hurtForce;
     public bool isAttack;
+    public bool isSlide;
     public bool wallJumping;
     [Header("物理材质")] public PhysicsMaterial2D normalMaterial;
     public PhysicsMaterial2D wallMaterial;
@@ -45,6 +49,7 @@ public class PlayerController : MonoBehaviour
         runSpeed = speed;
         inputControl.GamePlay.Jump.started += Jump;
         inputControl.GamePlay.Attack.started += PlayAttack;
+        inputControl.GamePlay.Slice.started += Slide;
         inputControl.GamePlay.WalkButtom.performed += ctx =>
         {
             if (physisCheck.isGround)
@@ -131,6 +136,42 @@ public class PlayerController : MonoBehaviour
             _playerAnimation.PlayAttack();
             isAttack = true;
         }
+    }
+
+
+    private void Slide(InputAction.CallbackContext obj)
+    {
+        if (!isSlide)
+        {
+            isSlide = true;
+            var targetPos = new Vector2(transform.position.x + transform.localScale.x * slideDistance,
+                transform.position.y);
+            StartCoroutine(TriggerSlice(targetPos));
+        }
+    }
+
+    public IEnumerator TriggerSlice(Vector3 target)
+    {
+        do
+        {
+            yield return null;
+            if (!physisCheck.isGround)
+            {
+                break;
+            }
+
+            if (physisCheck.touchFrontWall)
+            {
+                isSlide = false;
+                break;
+            }
+
+            var nextPos = new Vector2(transform.position.x + transform.localScale.x * slideSpeed,
+                transform.position.y);
+            rb.MovePosition(nextPos);
+        } while (Math.Abs(transform.position.x - target.x) > 0.1);
+
+        isSlide = false;
     }
 
     public void GetHurt(Transform attacker)

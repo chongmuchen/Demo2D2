@@ -42,5 +42,6 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool("isDead", _playerController.isDead);
         animator.SetBool("isAttack", _playerController.isAttack);
         animator.SetBool("onWall", physisCheck.onWall);
+        animator.SetBool("isSlide", _playerController.isSlide);
     }
 }
