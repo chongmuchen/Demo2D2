@@ -6,3 +6,9 @@ public enum NPCState
     Chase,
     Skill
 }
+
+public enum SceneType
+{
+    Location,
+    Menu
+}

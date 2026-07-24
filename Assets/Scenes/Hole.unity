@@ -13082,6 +13082,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419fd6c0ac9354a4b964fafceb4907f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeleportPoint
+  loadEventSO: {fileID: 11400000, guid: 5721281b0ce0a437990152ab5cee8f81, type: 2}
+  sceneToGo: {fileID: 0}
   positionToGo: {x: 8.5, y: 0.0071644783, z: 0}
 --- !u!1 &2041456595
 GameObject:
