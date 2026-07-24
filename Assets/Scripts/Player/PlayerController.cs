@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 originalOffset;
     private Vector2 originalSize;
+    [Header("监听时间")] public SceneLoadEventSO sceneLoadEvent;
+    public VoidEventSO afterSceneLoadEvent;
 
     [Header("基本参数")] public float speed;
     private float walkSpeed;
@@ -68,12 +70,28 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         inputControl.Enable();
+        sceneLoadEvent.loadRequestEvent += OnSceneLoad;
+        afterSceneLoadEvent.OnEventRaised += AfterSceneLoaded;
     }
 
     private void OnDisable()
     {
         inputControl.Disable();
+        sceneLoadEvent.loadRequestEvent -= OnSceneLoad;
+        afterSceneLoadEvent.OnEventRaised -= AfterSceneLoaded;
     }
+
+    private void OnSceneLoad(GameSceneSO arg0, Vector3 arg1, bool arg2)
+    {
+        inputControl.GamePlay.Disable();
+    }
+
+
+    private void AfterSceneLoaded()
+    {
+        inputControl.GamePlay.Enable();
+    }
+
 
     // Update is called once per frame
     private void Update()

@@ -2682,6 +2682,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212bbbcc9d7fb419993ee41f00292ff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  sceneLoadEvent: {fileID: 11400000, guid: 5721281b0ce0a437990152ab5cee8f81, type: 2}
+  afterSceneLoadEvent: {fileID: 11400000, guid: 0ba7556d2004d4f16973bf3d92683db0, type: 2}
   speed: 8
   jumpForce: 16.5
   wallJumpForce: 10

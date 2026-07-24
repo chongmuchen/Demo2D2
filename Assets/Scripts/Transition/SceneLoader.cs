@@ -49,7 +49,8 @@ public class SceneLoader : MonoBehaviour
 
     private void NewGame()
     {
-        OnLoadEventSO(firstLoadScene, firstLoadPosition, true);
+        // OnLoadEventSO(firstLoadScene, firstLoadPosition, true);
+        loadEventSO.RaiseLoadRequestEvent(firstLoadScene, firstLoadPosition, true);
     }
 
     private void OnLoadEventSO(GameSceneSO scene, Vector3 posToGo, bool fadeScene)
@@ -103,6 +104,10 @@ public class SceneLoader : MonoBehaviour
         _playerTransform.position = _positionToGo;
         _playerTransform.gameObject.SetActive(true);
         isLoading = false;
-        afterSceneLoadEventEO.RaiseEvent();
+        Debug.Log($"OnLoadedCompleted: {_currentLoadScene.sceneType} {_currentLoadScene.sceneType != SceneType.Menu}");
+        if (_currentLoadScene.sceneType != SceneType.Menu)
+        {
+            afterSceneLoadEventEO.RaiseEvent();
+        }
     }
 }
