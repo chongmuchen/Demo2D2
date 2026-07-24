@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   playerStatBar: {fileID: 1541769300}
   healthEvent: {fileID: 11400000, guid: 954334346be2e45ba99ac6675a118d7f, type: 2}
+  loadEvent: {fileID: 11400000, guid: 5721281b0ce0a437990152ab5cee8f81, type: 2}
 --- !u!4 &67841676
 Transform:
   m_ObjectHideFlags: 0
@@ -163,7 +164,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 551075542}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &123479329
 GameObject:
@@ -784,8 +785,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1058767224}
-  - {fileID: 67841676}
   - {fileID: 519420032}
   - {fileID: 2059143292}
   - {fileID: 614097753}
@@ -1296,7 +1295,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 551075542}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1058767225
 AudioSource:
@@ -3045,6 +3044,8 @@ SceneRoots:
   - {fileID: 1541769299}
   - {fileID: 1783132408}
   - {fileID: 1979100885}
+  - {fileID: 67841676}
+  - {fileID: 1058767224}
   - {fileID: 551075542}
   - {fileID: 1462956940}
   - {fileID: 390751786}

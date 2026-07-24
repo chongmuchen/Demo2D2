@@ -69,26 +69,28 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        inputControl.Enable();
+        // inputControl.Enable();
         sceneLoadEvent.loadRequestEvent += OnSceneLoad;
         afterSceneLoadEvent.OnEventRaised += AfterSceneLoaded;
     }
 
     private void OnDisable()
     {
-        inputControl.Disable();
+        // inputControl.Disable();
         sceneLoadEvent.loadRequestEvent -= OnSceneLoad;
         afterSceneLoadEvent.OnEventRaised -= AfterSceneLoaded;
     }
 
     private void OnSceneLoad(GameSceneSO arg0, Vector3 arg1, bool arg2)
     {
+        Debug.Log("OnSceneLoad");
         inputControl.GamePlay.Disable();
     }
 
 
     private void AfterSceneLoaded()
     {
+        Debug.Log("AfterSceneLoaded");
         inputControl.GamePlay.Enable();
     }
 
