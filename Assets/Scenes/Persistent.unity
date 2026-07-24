@@ -1796,8 +1796,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
   _playerTransform: {fileID: 1979100885}
   loadEventSO: {fileID: 11400000, guid: 5721281b0ce0a437990152ab5cee8f81, type: 2}
-  firstLoadScene: {fileID: 11400000, guid: 7b7eeed356b4f4647898b4720f6babfd, type: 2}
-  firstLoadPosition: {x: 15.27721, y: -2.992788, z: 0}
+  firstLoadScene: {fileID: 11400000, guid: 785af68836a764d3388596bf6988bd19, type: 2}
+  firstLoadPosition: {x: 10, y: 4, z: 0}
   afterSceneLoadEventEO: {fileID: 11400000, guid: 0ba7556d2004d4f16973bf3d92683db0, type: 2}
   fadeEventSO: {fileID: 11400000, guid: 37ccd5cbf6b7f4fe7a420e215aa5c892, type: 2}
   fadeDuration: 1
@@ -3011,7 +3011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683ffb64e9c6648f1bd7d4c25574d0e9, type: 3}
   m_Name: MainMenu
   m_EditorClassIdentifier: Assembly-CSharp::GameSceneSO
-  sceneType: 0
+  sceneType: 1
   sceneReference:
-    m_AssetGUID: 
+    m_AssetGUID: 2816ec41085e240c7a6dfb6aca9a90af
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
