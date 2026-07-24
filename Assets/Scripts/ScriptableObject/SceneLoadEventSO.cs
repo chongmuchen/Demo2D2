@@ -4,10 +4,10 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "SceneLoadEventSO", menuName = "Event/SceneLoadEventSO")]
 public class SceneLoadEventSO : ScriptableObject
 {
-    public UnityAction<Character> OnEventRaised;
+    public UnityAction<GameSceneSO, Vector3, bool> loadRequestEvent;
 
-    public void RaiseEvent(Character character)
+    public void RaiseLoadRequestEvent(GameSceneSO sceneToLoad, Vector3 screenPos, bool fadeLoad)
     {
-        OnEventRaised?.Invoke(character);
+        loadRequestEvent?.Invoke(sceneToLoad, screenPos, fadeLoad);
     }
 }
