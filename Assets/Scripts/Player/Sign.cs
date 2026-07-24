@@ -10,17 +10,28 @@ public class Sign : MonoBehaviour
     public GameObject spireSign;
     public Transform playerTrans;
     private bool canPress;
+    private IIteractable targetItem;
 
     private void Awake()
     {
         anim = spireSign.GetComponent<Animator>();
         _playerInputControl = new PlayerInputControl();
+        _playerInputControl.GamePlay.Confirm.started += OnConfirm;
     }
 
     private void OnEnable()
     {
         InputSystem.onActionChange += OnActionChange;
     }
+
+    private void OnConfirm(InputAction.CallbackContext obj)
+    {
+        if (canPress)
+        {
+            targetItem.TriggerAction();
+        }
+    }
+
 
     private void OnActionChange(object obj, InputActionChange actionChange)
     {
@@ -50,6 +61,7 @@ public class Sign : MonoBehaviour
         if (other.CompareTag("Interactable"))
         {
             canPress = true;
+            targetItem = other.GetComponent<IIteractable>();
         }
     }
 
