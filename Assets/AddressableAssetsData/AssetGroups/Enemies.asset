@@ -14,7 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Enemies
   m_GUID: 09855489cdc434850af8121040567935
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 5be28b47b75cc420c89afe06bdf99e3d
+    m_Address: Bee
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86c47d4ba38b84caabb6e92943fdfa73
+    m_Address: Boar
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d3191a5202e504cfa944d3c5b9f477b6
+    m_Address: Snail
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 169bab5172a1d466688c8d5534d3a036, type: 2}
   m_SchemaSet:
