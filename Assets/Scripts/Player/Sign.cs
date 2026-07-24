@@ -16,6 +16,7 @@ public class Sign : MonoBehaviour
     {
         anim = spireSign.GetComponent<Animator>();
         _playerInputControl = new PlayerInputControl();
+        _playerInputControl.Enable();
         _playerInputControl.GamePlay.Confirm.started += OnConfirm;
     }
 
@@ -29,6 +30,7 @@ public class Sign : MonoBehaviour
         if (canPress)
         {
             targetItem.TriggerAction();
+            GetComponent<AudioDefination>()?.PlayAudioClip();
         }
     }
 
