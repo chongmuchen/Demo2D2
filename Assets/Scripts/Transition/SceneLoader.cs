@@ -12,19 +12,26 @@ public class SceneLoader : MonoBehaviour
     public Transform _playerTransform;
     [Header("事件监听")] public SceneLoadEventSO loadEventSO;
     public GameSceneSO firstLoadScene;
+    public Vector3 firstLoadPosition;
+    [Header("广播")] public VoidEventSO afterSceneLoadEventEO;
 
-    [SerializeReference] private GameSceneSO _currentLoadScene;
+    [Header("加载配置")] public float fadeDuration;
+
+
+    private GameSceneSO _currentLoadScene;
     private GameSceneSO _sceneToGo;
     private Vector3 _positionToGo;
     private bool _fadeScene;
     private bool isLoading;
-    public float fadeDuration;
 
 
     private void Awake()
     {
-        _currentLoadScene = firstLoadScene;
-        firstLoadScene.sceneReference.LoadSceneAsync(LoadSceneMode.Additive);
+    }
+
+    private void Start()
+    {
+        NewGame();
     }
 
     private void OnDisable()
@@ -39,6 +46,11 @@ public class SceneLoader : MonoBehaviour
     }
 
 
+    private void NewGame()
+    {
+        OnLoadEventSO(firstLoadScene, firstLoadPosition, true);
+    }
+
     private void OnLoadEventSO(GameSceneSO scene, Vector3 posToGo, bool fadeScene)
     {
         if (isLoading)
@@ -51,7 +63,14 @@ public class SceneLoader : MonoBehaviour
         _sceneToGo = scene;
         _positionToGo = posToGo;
         _fadeScene = fadeScene;
-        StartCoroutine(UnloadPreviousScene());
+        if (_currentLoadScene != null)
+        {
+            StartCoroutine(UnloadPreviousScene());
+        }
+        else
+        {
+            LoadNewScene();
+        }
     }
 
     private IEnumerator UnloadPreviousScene()
@@ -61,11 +80,7 @@ public class SceneLoader : MonoBehaviour
         }
 
         yield return new WaitForSeconds(fadeDuration);
-        if (_currentLoadScene != null)
-        {
-            yield return _currentLoadScene.sceneReference.UnLoadScene();
-        }
-
+        yield return _currentLoadScene.sceneReference.UnLoadScene();
         LoadNewScene();
     }
 
@@ -81,8 +96,10 @@ public class SceneLoader : MonoBehaviour
         if (_fadeScene)
         {
         }
+
         _playerTransform.position = _positionToGo;
         _playerTransform.gameObject.SetActive(true);
         isLoading = false;
+        afterSceneLoadEventEO.RaiseEvent();
     }
 }
