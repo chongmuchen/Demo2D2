@@ -14,6 +14,7 @@ public class SceneLoader : MonoBehaviour
     public GameSceneSO firstLoadScene;
     public Vector3 firstLoadPosition;
     [Header("广播")] public VoidEventSO afterSceneLoadEventEO;
+    public FadeEventSO fadeEventSO;
 
     [Header("加载配置")] public float fadeDuration;
 
@@ -77,6 +78,7 @@ public class SceneLoader : MonoBehaviour
     {
         if (_fadeScene)
         {
+            fadeEventSO.FadeIn(fadeDuration);
         }
 
         yield return new WaitForSeconds(fadeDuration);
@@ -95,6 +97,7 @@ public class SceneLoader : MonoBehaviour
         _currentLoadScene = _sceneToGo;
         if (_fadeScene)
         {
+            fadeEventSO.FadeOut(fadeDuration);
         }
 
         _playerTransform.position = _positionToGo;
