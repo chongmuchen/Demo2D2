@@ -1675,7 +1675,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a1b06829ae9942c7adebe40ff9a062d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
-  firstLoadScene: {fileID: 11400000, guid: 876d439bb8d584f03a0053e05d865666, type: 2}
+  loadEventSO: {fileID: 11400000, guid: 5721281b0ce0a437990152ab5cee8f81, type: 2}
+  firstLoadScene: {fileID: 11400000, guid: 7b7eeed356b4f4647898b4720f6babfd, type: 2}
+  _currentLoadScene: {fileID: 0}
+  fadeDuration: 3
 --- !u!1 &1491365494
 GameObject:
   m_ObjectHideFlags: 0
@@ -2557,7 +2560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212bbbcc9d7fb419993ee41f00292ff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  speed: 5
+  speed: 8
   jumpForce: 16.5
   wallJumpForce: 10
   inputDirection: {x: 0, y: 0}
