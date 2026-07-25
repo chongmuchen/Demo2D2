@@ -7,6 +7,7 @@ public class SavePoint : MonoBehaviour, IIteractable
     public Sprite darkSprite;
     public Sprite lightSprite;
     public bool isDone;
+    public VoidEventSO LoadGameEvent;
 
     public void Awake()
     {
@@ -24,6 +25,7 @@ public class SavePoint : MonoBehaviour, IIteractable
         {
             isDone = true;
             _spriteRenderer.sprite = lightSprite;
+            LoadGameEvent.RaiseEvent();
             this.gameObject.tag = "Untagged";
         }
     }

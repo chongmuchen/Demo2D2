@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, ISaveable
 {
     [Header("基本属性")] public float maxHealth;
     public float currentHealth;
@@ -44,6 +44,20 @@ public class Character : MonoBehaviour
         }
 
         OnHealthChange?.Invoke(this);
+    }
+
+
+    private void OnEnable()
+    {
+        ISaveable saveable = this;
+        saveable.RegisterEvent();
+    }
+
+
+    private void OnDisable()
+    {
+        ISaveable saveable = this;
+        saveable.UnregisterEvent();
     }
 
     private void TriggerInvulnerable()
@@ -88,6 +102,32 @@ public class Character : MonoBehaviour
             currentHealth = 0;
             OnDie?.Invoke();
             OnHealthChange?.Invoke(this);
+        }
+    }
+
+
+    public DataDefination GetDataID()
+    {
+        return GetComponent<DataDefination>();
+    }
+
+    public void GetSaveData(Data data)
+    {
+        if (data.characterPosDict.ContainsKey(GetDataID().ID))
+        {
+            data.characterPosDict[GetDataID().ID] = transform.position;
+        }
+        else
+        {
+            data.characterPosDict[GetDataID().ID] = transform.position;
+        }
+    }
+
+    public void LoadData(Data data)
+    {
+        if (data.characterPosDict.ContainsKey(GetDataID().ID))
+        {
+            transform.position = data.characterPosDict[GetDataID().ID];
         }
     }
 }
