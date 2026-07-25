@@ -1,11 +1,15 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class DataManager : MonoBehaviour
 {
     public static DataManager instance;
     private List<ISaveable> saveables = new List<ISaveable>();
+    private Data saveData;
+    [Header("事件监听")] public VoidEventSO saveDataEvent;
 
     void Awake()
     {
@@ -16,6 +20,49 @@ public class DataManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+
+        saveData = new Data();
+    }
+
+    private void Update()
+    {
+        if (Keyboard.current.lKey.wasPressedThisFrame)
+        {
+            LoadData();
+        }
+    }
+
+    private void OnEnable()
+    {
+        saveDataEvent.OnEventRaised += SaveData;
+    }
+
+
+    private void OnDisable()
+    {
+        saveDataEvent.OnEventRaised -= SaveData;
+    }
+
+    private void SaveData()
+    {
+        foreach (ISaveable saveable in saveables)
+        {
+            saveable.GetSaveData(saveData);
+        }
+
+        foreach (var item in saveData.characterPosDict)
+        {
+            Debug.Log($"SaveData {item.Key}:{item.Value}");
+        }
+    }
+
+
+    private void LoadData()
+    {
+        foreach (ISaveable saveable in saveables)
+        {
+            saveable.LoadData(saveData);
         }
     }
 

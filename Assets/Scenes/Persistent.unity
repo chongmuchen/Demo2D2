@@ -2450,6 +2450,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1889649341}
+  - component: {fileID: 1889649342}
   m_Layer: 0
   m_Name: DataManager
   m_TagString: Untagged
@@ -2472,6 +2473,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1889649342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889649340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3528f1514c58427cab89633eb69f30d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DataManager
+  saveDataEvent: {fileID: 11400000, guid: 9e4a402b742a248f38892481cd99deab, type: 2}
 --- !u!1 &1908090953
 GameObject:
   m_ObjectHideFlags: 0
@@ -2641,6 +2655,7 @@ GameObject:
   - component: {fileID: 1979100891}
   - component: {fileID: 1979100892}
   - component: {fileID: 1979100893}
+  - component: {fileID: 1979100894}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -2996,6 +3011,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1979100894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979100883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a1b71b1ad44d3ba92fb057165d5888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DataDefination
+  persistentType: 0
+  ID: 2859be8c-b0fd-4ceb-9289-39bba2201a18
 --- !u!1 &2059143290
 GameObject:
   m_ObjectHideFlags: 0
