@@ -110,7 +110,6 @@ public class SceneLoader : MonoBehaviour
         _playerTransform.position = _positionToGo;
         _playerTransform.gameObject.SetActive(true);
         isLoading = false;
-        Debug.Log($"OnLoadedCompleted: {_currentLoadScene.sceneType}");
         if (_currentLoadScene.sceneType != SceneType.Menu)
         {
             afterSceneLoadEventEO.RaiseEvent();
