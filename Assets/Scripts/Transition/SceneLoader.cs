@@ -11,11 +11,16 @@ public class SceneLoader : MonoBehaviour
 {
     public Transform _playerTransform;
     [Header("事件监听")] public SceneLoadEventSO loadEventSO;
-    public GameSceneSO firstLoadScene;
-    public Vector3 firstLoadPosition;
+    public VoidEventSO newGaleEventSO;
+
     [Header("广播")] public VoidEventSO afterSceneLoadEventEO;
     public FadeEventSO fadeEventSO;
+    public SceneLoadEventSO sceneUnloadEventSO;
 
+    [Header("场景")] public GameSceneSO firstLoadScene;
+    public Vector3 firstLoadPosition;
+    public GameSceneSO menuScene;
+    public Vector3 menuPosition;
     [Header("加载配置")] public float fadeDuration;
 
 
@@ -32,12 +37,15 @@ public class SceneLoader : MonoBehaviour
 
     private void Start()
     {
-        NewGame();
+        loadEventSO.RaiseLoadRequestEvent(menuScene, menuPosition, true);
+        newGaleEventSO.OnEventRaised += NewGame;
+        // NewGame();
     }
 
     private void OnDisable()
     {
         loadEventSO.loadRequestEvent -= OnLoadEventSO;
+        newGaleEventSO.OnEventRaised -= NewGame;
     }
 
 
@@ -49,7 +57,6 @@ public class SceneLoader : MonoBehaviour
 
     private void NewGame()
     {
-        // OnLoadEventSO(firstLoadScene, firstLoadPosition, true);
         loadEventSO.RaiseLoadRequestEvent(firstLoadScene, firstLoadPosition, true);
     }
 
@@ -65,25 +72,24 @@ public class SceneLoader : MonoBehaviour
         _sceneToGo = scene;
         _positionToGo = posToGo;
         _fadeScene = fadeScene;
-        if (_currentLoadScene != null)
-        {
-            StartCoroutine(UnloadPreviousScene());
-        }
-        else
-        {
-            LoadNewScene();
-        }
+
+        StartCoroutine(UnloadPreviousScene());
     }
 
     private IEnumerator UnloadPreviousScene()
     {
-        if (_fadeScene)
+        if (_currentLoadScene != null)
         {
-            fadeEventSO.FadeIn(fadeDuration);
+            if (_fadeScene)
+            {
+                fadeEventSO.FadeIn(fadeDuration);
+            }
+
+            yield return new WaitForSeconds(fadeDuration);
+            yield return _currentLoadScene.sceneReference.UnLoadScene();
         }
 
-        yield return new WaitForSeconds(fadeDuration);
-        yield return _currentLoadScene.sceneReference.UnLoadScene();
+        sceneUnloadEventSO.RaiseLoadRequestEvent(_sceneToGo, _positionToGo, true);
         LoadNewScene();
     }
 
@@ -104,7 +110,7 @@ public class SceneLoader : MonoBehaviour
         _playerTransform.position = _positionToGo;
         _playerTransform.gameObject.SetActive(true);
         isLoading = false;
-        Debug.Log($"OnLoadedCompleted: {_currentLoadScene.sceneType} {_currentLoadScene.sceneType != SceneType.Menu}");
+        Debug.Log($"OnLoadedCompleted: {_currentLoadScene.sceneType}");
         if (_currentLoadScene.sceneType != SceneType.Menu)
         {
             afterSceneLoadEventEO.RaiseEvent();

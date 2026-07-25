@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   playerStatBar: {fileID: 1541769300}
   healthEvent: {fileID: 11400000, guid: 954334346be2e45ba99ac6675a118d7f, type: 2}
-  loadEvent: {fileID: 11400000, guid: 5721281b0ce0a437990152ab5cee8f81, type: 2}
+  loadEvent: {fileID: 11400000, guid: f474563234d8b4d679a6030a9891a472, type: 2}
 --- !u!4 &67841676
 Transform:
   m_ObjectHideFlags: 0
@@ -1776,7 +1776,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 4, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1795,10 +1795,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
   _playerTransform: {fileID: 1979100885}
   loadEventSO: {fileID: 11400000, guid: 5721281b0ce0a437990152ab5cee8f81, type: 2}
-  firstLoadScene: {fileID: 11400000, guid: 785af68836a764d3388596bf6988bd19, type: 2}
-  firstLoadPosition: {x: 10, y: 4, z: 0}
+  newGaleEventSO: {fileID: 11400000, guid: 3720700ed305b41fcaabc3d5e651d6da, type: 2}
   afterSceneLoadEventEO: {fileID: 11400000, guid: 0ba7556d2004d4f16973bf3d92683db0, type: 2}
   fadeEventSO: {fileID: 11400000, guid: 37ccd5cbf6b7f4fe7a420e215aa5c892, type: 2}
+  sceneUnloadEventSO: {fileID: 11400000, guid: f474563234d8b4d679a6030a9891a472, type: 2}
+  firstLoadScene: {fileID: 11400000, guid: 876d439bb8d584f03a0053e05d865666, type: 2}
+  firstLoadPosition: {x: 10, y: 4, z: 0}
+  menuScene: {fileID: 11400000, guid: 785af68836a764d3388596bf6988bd19, type: 2}
+  menuPosition: {x: 10, y: 4, z: 0}
   fadeDuration: 1
 --- !u!1 &1491365494
 GameObject:

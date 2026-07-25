@@ -83,14 +83,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnSceneLoad(GameSceneSO arg0, Vector3 arg1, bool arg2)
     {
-        Debug.Log("OnSceneLoad");
         inputControl.GamePlay.Disable();
     }
 
 
     private void AfterSceneLoaded()
     {
-        Debug.Log("AfterSceneLoaded");
         inputControl.GamePlay.Enable();
     }
 

@@ -20,10 +20,8 @@ public class UIManager : MonoBehaviour
 
     private void OnSceneLoad(GameSceneSO scene, Vector3 arg1, bool arg2)
     {
-        if (scene.sceneType == SceneType.Menu)
-        {
-            playerStatBar.gameObject.SetActive(false);
-        }
+        var isActive = scene.sceneType != SceneType.Menu;
+        playerStatBar.gameObject.SetActive(isActive);
     }
 
     private void OnHealthEvent(Character character)
