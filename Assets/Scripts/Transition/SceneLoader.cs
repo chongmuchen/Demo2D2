@@ -9,9 +9,10 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 
 public class SceneLoader : MonoBehaviour
 {
+    public static SceneLoader Instance { get; private set; }
+
     public Transform _playerTransform;
     [Header("事件监听")] public SceneLoadEventSO loadEventSO;
-    public VoidEventSO newGaleEventSO;
 
     [Header("广播")] public VoidEventSO afterSceneLoadEventEO;
     public FadeEventSO fadeEventSO;
@@ -33,21 +34,32 @@ public class SceneLoader : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
     }
 
     private void Start()
     {
         loadEventSO.RaiseLoadRequestEvent(menuScene, menuPosition, true);
-        newGaleEventSO.OnEventRaised += NewGame;
-        // NewGame();
     }
 
     private void OnDisable()
     {
         loadEventSO.loadRequestEvent -= OnLoadEventSO;
-        newGaleEventSO.OnEventRaised -= NewGame;
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
 
     private void OnEnable()
     {
@@ -55,7 +67,7 @@ public class SceneLoader : MonoBehaviour
     }
 
 
-    private void NewGame()
+    public void StartNewGame()
     {
         loadEventSO.RaiseLoadRequestEvent(firstLoadScene, firstLoadPosition, true);
     }
