@@ -7,7 +7,6 @@ public class CameraControl : MonoBehaviour
     private CinemachineConfiner2D _confiner;
     public CinemachineImpulseSource _impulseSource;
     public VoidEventSO voidEventSO;
-    public VoidEventSO afterSceneLoadEventEO;
 
     private void Awake()
     {
@@ -22,14 +21,14 @@ public class CameraControl : MonoBehaviour
     private void OnEnable()
     {
         voidEventSO.OnEventRaised += OnCanemaShakeEvent;
-        afterSceneLoadEventEO.OnEventRaised += OnAfterSceneLoaded;
+        SceneLoader.AfterSceneLoaded += OnAfterSceneLoaded;
     }
 
 
     private void OnDisable()
     {
         voidEventSO.OnEventRaised -= OnCanemaShakeEvent;
-        afterSceneLoadEventEO.OnEventRaised -= OnAfterSceneLoaded;
+        SceneLoader.AfterSceneLoaded -= OnAfterSceneLoaded;
     }
 
     private void GetNewCameraBounds()
