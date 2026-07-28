@@ -15,7 +15,6 @@ public class SceneLoader : MonoBehaviour
     [Header("事件监听")] public SceneLoadEventSO loadEventSO;
 
     [Header("广播")] public VoidEventSO afterSceneLoadEventEO;
-    public FadeEventSO fadeEventSO;
     public SceneLoadEventSO sceneUnloadEventSO;
 
     [Header("场景")] public GameSceneSO firstLoadScene;
@@ -94,7 +93,7 @@ public class SceneLoader : MonoBehaviour
         {
             if (_fadeScene)
             {
-                fadeEventSO.FadeIn(fadeDuration);
+                FadeCanvas.Instance.FadeIn(fadeDuration);
             }
 
             yield return new WaitForSeconds(fadeDuration);
@@ -116,7 +115,7 @@ public class SceneLoader : MonoBehaviour
         _currentLoadScene = _sceneToGo;
         if (_fadeScene)
         {
-            fadeEventSO.FadeOut(fadeDuration);
+            FadeCanvas.Instance.FadeOut(fadeDuration);
         }
 
         _playerTransform.position = _positionToGo;

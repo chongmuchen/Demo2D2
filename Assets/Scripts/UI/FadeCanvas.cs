@@ -4,21 +4,36 @@ using DG.Tweening;
 
 public class FadeCanvas : MonoBehaviour
 {
+    public static FadeCanvas Instance { get; private set; }
+
     public Image fadeImage;
-    public FadeEventSO fadeEventSO;
 
-    private void OnFadeEvent(Color color, float duration, bool fadeIn)
+    private void Awake()
     {
-        fadeImage.DOBlendableColor(color, duration);
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
     }
 
-    private void OnEnable()
+    public void FadeIn(float duration)
     {
-        fadeEventSO.OnEventRaised += OnFadeEvent;
+        fadeImage.DOBlendableColor(Color.black, duration);
     }
 
-    private void OnDisable()
+    public void FadeOut(float duration)
     {
-        fadeEventSO.OnEventRaised -= OnFadeEvent;
+        fadeImage.DOBlendableColor(Color.clear, duration);
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
     }
 }
