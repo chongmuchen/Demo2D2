@@ -10,12 +10,12 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance { get; private set; }
+    public static event Action AfterSceneLoaded;
 
     public Transform _playerTransform;
     [Header("事件监听")] public SceneLoadEventSO loadEventSO;
 
-    [Header("广播")] public VoidEventSO afterSceneLoadEventEO;
-    public SceneLoadEventSO sceneUnloadEventSO;
+    [Header("广播")] public SceneLoadEventSO sceneUnloadEventSO;
 
     [Header("场景")] public GameSceneSO firstLoadScene;
     public Vector3 firstLoadPosition;
@@ -30,6 +30,11 @@ public class SceneLoader : MonoBehaviour
     private bool _fadeScene;
     private bool isLoading;
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStaticEvents()
+    {
+        AfterSceneLoaded = null;
+    }
 
     private void Awake()
     {
@@ -123,7 +128,7 @@ public class SceneLoader : MonoBehaviour
         isLoading = false;
         if (_currentLoadScene.sceneType != SceneType.Menu)
         {
-            afterSceneLoadEventEO.RaiseEvent();
+            AfterSceneLoaded?.Invoke();
         }
     }
 }
